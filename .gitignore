@@ -1,0 +1,22 @@
+# Task
+/Car Sharing/*/
+/Car Sharing/task/test/
+/Car Sharing/task/build/
+/Car Sharing/task/out/
+!/Car Sharing/task/
+/Topics/
+
+# Idea
+/.idea/
+*.yaml
+
+# Gradle
+/.gradle/
+/gradle/
+*.gradle
+!build.gradle
+gradlew
+gradlew.bat
+
+*.json
+*.db
