@@ -10,6 +10,7 @@ public class Database {
     private final String url = "jdbc:h2:";
     private final String user = "sa";
     private final String pass = "";
+    private Statement statement;
 
     public Database(String name) {
         try {
@@ -35,15 +36,44 @@ public class Database {
     }
 
     public Optional<ResultSet> executeQuery(String sql) {
+        closeQuery();
         try {
             Statement statement = connection.createStatement();
             ResultSet ret = statement.executeQuery(sql);
-            statement.close();
+            this.statement = statement;
             return Optional.of(ret);
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return Optional.empty();
+    }
+
+    public void closeQuery() {
+        if (statement != null) {
+            try {
+                statement.close();
+            } catch (SQLException ignored) {
+            }
+            statement = null;
+        }
+    }
+
+    public void restore() {
+        execute("DROP TABLE COMPANY");
+        execute("DROP TABLE CAR");
+        execute("CREATE TABLE COMPANY (" +
+                "ID INT PRIMARY KEY AUTO_INCREMENT," +
+                "NAME VARCHAR(30) NOT NULL UNIQUE" +
+                ");");
+        execute("CREATE TABLE CAR (" +
+                "ID INT PRIMARY KEY AUTO_INCREMENT," +
+                "NAME VARCHAR(30) UNIQUE NOT NULL," +
+                "COMPANY_ID INT NOT NULL," +
+                "CONSTRAINT FK_COMPANY FOREIGN KEY (COMPANY_ID) " +
+                "REFERENCES COMPANY(ID) " +
+                "ON DELETE CASCADE " +
+                "ON UPDATE CASCADE" +
+                ");");
     }
 
     public void close() {
