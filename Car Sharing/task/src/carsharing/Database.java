@@ -13,6 +13,7 @@ public class Database {
     private Statement statement;
 
     public Database(String name) {
+        // The database is saved in a different location, if it is testing
         try {
             Class.forName(driver);
             String toTask = "./src/carsharing/db/";

@@ -14,8 +14,6 @@ public class Main {
 
     public static void main(String[] args) {
         Database database = new Database(args[1]);
-        database.execute("DROP TABLE CAR");
-        database.execute("DROP TABLE COMPANY");
         database.execute("CREATE TABLE COMPANY (" +
                 "ID INT PRIMARY KEY AUTO_INCREMENT," +
                 "NAME VARCHAR(30) NOT NULL UNIQUE" +
@@ -45,9 +43,10 @@ public class Main {
         while (running) {
             openMenu();
         }
+        database.close();
+        database.execute("DROP TABLE CUSTOMERS");
         database.execute("DROP TABLE CAR");
         database.execute("DROP TABLE COMPANY");
-        database.close();
     }
 
     public static void openMenu() {
