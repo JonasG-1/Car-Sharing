@@ -50,6 +50,7 @@ public class CompanyDaoImpl implements CompanyDao {
             try {
                 resultSet.next();
                 optional.set(Optional.of(new Company(resultSet.getString(2), resultSet.getInt(1))));
+                database.closeQuery();
             } catch (SQLException e) {
                 e.printStackTrace();
             }
