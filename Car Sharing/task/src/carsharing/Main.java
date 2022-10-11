@@ -43,10 +43,11 @@ public class Main {
         while (running) {
             openMenu();
         }
-        database.close();
         database.execute("DROP TABLE CUSTOMERS");
         database.execute("DROP TABLE CAR");
         database.execute("DROP TABLE COMPANY");
+        database.close();
+
     }
 
     public static void openMenu() {

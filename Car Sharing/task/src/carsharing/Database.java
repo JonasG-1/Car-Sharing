@@ -16,7 +16,7 @@ public class Database {
         // The database is saved in a different location, if it is testing
         try {
             Class.forName(driver);
-            String toTask = "./src/carsharing/db/";
+            String toTask = "./Car Sharing/task/src/carsharing/db/";
             connection = DriverManager.getConnection(url + toTask + name);
             connection.setAutoCommit(true);
         } catch (Exception e) {
